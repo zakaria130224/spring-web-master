@@ -24,6 +24,7 @@ public class LoginController {
             model.addAttribute("success", "Successfully Logged Out");
         }
 
+
         model.put("errorMessage", error);
         model.put("title", "Login");
         return "login";
