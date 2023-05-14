@@ -38,7 +38,7 @@
                             <div class="col-sm">
                                 <div class="table-wrap">
                                     <div class="table-responsive">
-                                        <table class="table mb-0" id="user-tbl">
+                                        <table class="table table-hover w-100 display pb-30" id="user-tbl">
                                             <thead>
                                             <tr>
                                                 <%--                                                        <th>#</th>--%>

@@ -38,10 +38,11 @@ License: You must have a valid license purchased only from themeforest to legall
           href="${pageContext.request.contextPath}/assets/plugins/bootstrap-datepicker-1.9.0-dist/css/bootstrap-datepicker.min.css"/>
 
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/assets/plugins/datatables/jquery.dataTables.min.css"/>
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/assets/plugins/datatable-button/buttons.dataTables.min.css"/>
+    <!-- Data Table CSS -->
+    <link href="${pageContext.request.contextPath}/assets/vendors4/datatables.net-dt/css/jquery.dataTables.min.css"
+          rel="stylesheet" type="text/css"/>
+    <link href="${pageContext.request.contextPath}/assets/vendors4/datatables.net-responsive-dt/css/responsive.dataTables.min.css"
+          rel="stylesheet" type="text/css"/>
     <!-- Custom CSS -->
     <link href="${pageContext.request.contextPath}/assets/dist/css/style.css" rel="stylesheet" type="text/css">
 
