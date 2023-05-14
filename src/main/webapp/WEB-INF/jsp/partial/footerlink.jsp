@@ -33,6 +33,9 @@
     <!-- Init JavaScript -->
     <script src="${pageContext.request.contextPath}/assets/dist/js/init.js"></script>
 
+<script src="${pageContext.request.contextPath}/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/datatable-button/dataTables.buttons.min.js"></script>
+
 </body>
 
 
