@@ -68,6 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/**/*.woff2",
                 "/**/*.woff",
                 "/**/*.map",
+                "*.map",
                 "/**/*.ttf",
                 "/**/*.js",
                 "/logout",

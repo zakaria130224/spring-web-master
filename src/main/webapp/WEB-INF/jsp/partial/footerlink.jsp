@@ -3,11 +3,10 @@
 
 
 <!-- jQuery -->
-<script src="${pageContext.request.contextPath}/assets/vendors4/jquery/dist/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/jquery/jquery.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="${pageContext.request.contextPath}/assets/vendors4/popper.js/dist/umd/popper.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/vendors4/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/bootstrap.min.js"></script>
 
 <!-- Slimscroll JavaScript -->
 <script src="${pageContext.request.contextPath}/assets/dist/js/jquery.slimscroll.js"></script>
@@ -19,38 +18,21 @@
 <script src="${pageContext.request.contextPath}/assets/dist/js/dropdown-bootstrap-extended.js"></script>
 
 <!-- Bootstrap-table JavaScript -->
-<script src="${pageContext.request.contextPath}/assets/vendors4/bootstrap-table/dist/bootstrap-table.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/dist/js/bootstrap-table-data.html"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/bootstrap-table.min.js"></script>
 
-<!-- Peity JavaScript -->
-<script src="${pageContext.request.contextPath}/assets/vendors4/peity/jquery.peity.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/dist/js/peity-data.js"></script>
-
-<!-- Toggles JavaScript -->
-<script src="${pageContext.request.contextPath}/assets/vendors4/jquery-toggles/toggles.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/dist/js/toggle-data.js"></script>
 
 <!-- Init JavaScript -->
 <script src="${pageContext.request.contextPath}/assets/dist/js/init.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/plugins/datatable-button/dataTables.buttons.min.js"></script>
-
 <!-- Data Table JavaScript -->
-<script src="${pageContext.request.contextPath}/assets/vendors4/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/vendors4/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/vendors4/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/vendors4/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/vendors4/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/vendors4/datatables.net-buttons/js/buttons.flash.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/vendors4/jszip/dist/jszip.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/vendors4/pdfmake/build/pdfmake.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/vendors4/pdfmake/build/vfs_fonts.js"></script>
-<script src="${pageContext.request.contextPath}/assets/vendors4/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/vendors4/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/vendors4/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/datatables/datatables.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/dist/js/dataTables-data.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/assets/plugins/spring_friendly_js/jquery.spring-friendly.js"></script>
 
+<script>
+    let base_url = $("#domain_url").val();
+</script>
 
 </body>
 
