@@ -18,25 +18,20 @@ import java.util.Date;
 public class BaseEntity {
     @Id
     @Column(name = "ID")
-    @JsonProperty("Id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @CreationTimestamp
-    @Column(name ="CREATED_AT")
-    @JsonProperty("CreatedAt")
+    @Column(name = "CREATED_AT")
     private Date createdAt;
 
-    @Column(name ="UPDATED_AT")
-    @JsonProperty("UpdatedAt")
+    @Column(name = "UPDATED_AT")
     private Date updatedAt;
 
     @Column(name = "CREATED_BY")
-    @JsonProperty("CreatedBy")
     private String createdBy;
 
     @Column(name = "UPDATED_BY")
-    @JsonProperty("UpdatedBy")
     private String updatedBy;
 
 

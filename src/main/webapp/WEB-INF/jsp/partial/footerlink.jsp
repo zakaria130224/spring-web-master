@@ -1,37 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    
+         pageEncoding="ISO-8859-1" %>
 
-    <!-- jQuery -->
-    <script src="${pageContext.request.contextPath}/assets/vendors4/jquery/dist/jquery.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="${pageContext.request.contextPath}/assets/vendors4/popper.js/dist/umd/popper.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/vendors4/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- jQuery -->
+<script src="${pageContext.request.contextPath}/assets/plugins/jquery/jquery.min.js"></script>
 
-    <!-- Slimscroll JavaScript -->
-    <script src="${pageContext.request.contextPath}/assets/dist/js/jquery.slimscroll.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/bootstrap.min.js"></script>
 
-    <!-- FeatherIcons JavaScript -->
-    <script src="${pageContext.request.contextPath}/assets/dist/js/feather.min.js"></script>
+<!-- Slimscroll JavaScript -->
+<script src="${pageContext.request.contextPath}/assets/dist/js/jquery.slimscroll.js"></script>
 
-    <!-- Fancy Dropdown JS -->
-    <script src="${pageContext.request.contextPath}/assets/dist/js/dropdown-bootstrap-extended.js"></script>
+<!-- FeatherIcons JavaScript -->
+<script src="${pageContext.request.contextPath}/assets/dist/js/feather.min.js"></script>
 
-    <!-- Bootstrap-table JavaScript -->
-    <script src="${pageContext.request.contextPath}/assets/vendors4/bootstrap-table/dist/bootstrap-table.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/dist/js/bootstrap-table-data.html"></script>
+<!-- Fancy Dropdown JS -->
+<script src="${pageContext.request.contextPath}/assets/dist/js/dropdown-bootstrap-extended.js"></script>
 
-    <!-- Peity JavaScript -->
-    <script src="${pageContext.request.contextPath}/assets/vendors4/peity/jquery.peity.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/dist/js/peity-data.js"></script>
+<!-- Bootstrap-table JavaScript -->
+<script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/bootstrap-table.min.js"></script>
 
-    <!-- Toggles JavaScript -->
-    <script src="${pageContext.request.contextPath}/assets/vendors4/jquery-toggles/toggles.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/dist/js/toggle-data.js"></script>
 
-    <!-- Init JavaScript -->
-    <script src="${pageContext.request.contextPath}/assets/dist/js/init.js"></script>
+<!-- Init JavaScript -->
+<script src="${pageContext.request.contextPath}/assets/dist/js/init.js"></script>
+
+<!-- Data Table JavaScript -->
+<script src="${pageContext.request.contextPath}/assets/plugins/datatables/datatables.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/dist/js/dataTables-data.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/assets/plugins/spring_friendly_js/jquery.spring-friendly.js"></script>
+
+<script>
+    let base_url = $("#domain_url").val();
+</script>
 
 </body>
 
