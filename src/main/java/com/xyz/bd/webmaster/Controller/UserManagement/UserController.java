@@ -1,9 +1,9 @@
 package com.xyz.bd.webmaster.Controller.UserManagement;
 
-import com.xyz.bd.webmaster.models.user.DTOs.DTOUser;
-import com.xyz.bd.webmaster.models.user.Entities.AppUser;
-import com.xyz.bd.webmaster.repositories.user.AppUserRepository;
-import com.xyz.bd.webmaster.user.AppUserService;
+import com.xyz.bd.webmaster.Models.UserManagement.DTOs.DTOUser;
+import com.xyz.bd.webmaster.Models.UserManagement.Entities.AppUser;
+import com.xyz.bd.webmaster.Repositories.UserManagement.AppUserRepository;
+import com.xyz.bd.webmaster.Services.UserManagement.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;

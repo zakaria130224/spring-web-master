@@ -12,8 +12,8 @@
     <meta name="description" content="A responsive"/>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <%--    <link rel="shortcut icon" href="favicon.ico">--%>
+    <%--    <link rel="icon" href="favicon.ico" type="image/x-icon">--%>
 
     <!-- Bootstrap table CSS -->
     <link href="${pageContext.request.contextPath}/assets/plugins/bootstrap/bootstrap.min.css"
@@ -30,7 +30,15 @@
     <!-- Data Table CSS -->
     <link href="${pageContext.request.contextPath}/assets/plugins/datatables/datatables.min.css" rel="stylesheet"
           type="text/css">
-    <!-- Custom CSS -->
+
+
+    <!-- Toggles CSS -->
+    <link href="${pageContext.request.contextPath}/assets/plugins/jquery-toggles/css/toggles.css" rel="stylesheet"
+          type="text/css">
+    <link href="${pageContext.request.contextPath}/assets/plugins/jquery-toggles/css/themes/toggles-light.css"
+          rel="stylesheet" type="text/css">
+
+    <!-- Template CSS -->
 
     <link href="${pageContext.request.contextPath}/assets/dist/css/style.css" rel="stylesheet" type="text/css">
 

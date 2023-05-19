@@ -18,8 +18,11 @@
 <script src="${pageContext.request.contextPath}/assets/dist/js/dropdown-bootstrap-extended.js"></script>
 
 <!-- Bootstrap-table JavaScript -->
-<script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/bootstrap-table.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 
+<!-- Toggles JavaScript -->
+<script src="${pageContext.request.contextPath}/assets/plugins/jquery-toggles/toggles.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/dist/js/toggle-data.js"></script>
 
 <!-- Init JavaScript -->
 <script src="${pageContext.request.contextPath}/assets/dist/js/init.js"></script>
