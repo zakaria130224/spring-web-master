@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -42,10 +43,15 @@ public class MenuController {
 
 
     @PostMapping(value = "/save")
-    public ModelAndView save(DTOUser dtoUser, ModelMap model, RedirectAttributes attributes, HttpServletRequest request) {
+    public RedirectView save(Menu req, ModelMap model, RedirectAttributes attributes, HttpServletRequest request) {
         ///TODO: Add User
-
-        return new ModelAndView("redirect:" + "user");
+        try {
+            menuRepository.save(req);
+            attributes.addFlashAttribute("success", "Menu saved successfully!");
+        } catch (Exception ex) {
+            attributes.addFlashAttribute("error", "Menu not saved!");
+        }
+        return new RedirectView("/menu", true);
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)

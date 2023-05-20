@@ -24,7 +24,7 @@
         <!-- Container -->
         <div class="container-fluid px-xxl-65 px-xl-20">
 
-
+            <!-- Message -->
             <jsp:include page="../../partial/msg.jsp"></jsp:include>
             <!-- Title -->
 

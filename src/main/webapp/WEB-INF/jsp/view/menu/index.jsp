@@ -24,7 +24,7 @@
         <!-- Container -->
         <div class="container-fluid px-xxl-65 px-xl-20">
 
-
+            <!-- Message -->
             <jsp:include page="../../partial/msg.jsp"></jsp:include>
             <!-- Title -->
 
@@ -89,8 +89,6 @@
             </div>
             <!-- /Row -->
 
-            <span class="badge badge-primary mt-15 mr-10">Primary</span>
-
         </div>
         <!-- /Container -->
 
@@ -107,7 +105,7 @@
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModal"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <form name="f" action="save" method="POST" modelAttribute="message">
+        <form name="f" action="menu/save" method="POST" modelAttribute="message">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Modal title</h5>
