@@ -102,7 +102,7 @@
 
 
 <!-- Add Modal forms-->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModal"
+<div class="modal fade" id="addModal" role="dialog" aria-labelledby="addModal"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <form name="f" action="menu/save" method="POST" modelAttribute="message">
@@ -114,19 +114,78 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-row">
-
-                        <div class="col-md-12 mb-12">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
                             <label>Name <span class="red-dark-2">*</span></label>
                             <input type="text" name="name" class="form-control form-control-sm" placeholder="Enter Name"
                                    required>
                         </div>
-
-                        <div class="col-md-12 mb-12 mt-10">
-                            <label>Status </label>
-                            <input type="checkbox" value="1" name="active">
+                        <div class="col-md-6 form-group">
+                            <label>Menu URL <span class="red-dark-2">*</span></label>
+                            <input type="text" name="name" class="form-control form-control-sm" placeholder="Enter Name"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Icon Class <span class="red-dark-2">*</span></label>
+                            <input type="text" name="name" class="form-control form-control-sm" placeholder="Enter Name"
+                                   required>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Description <span class="red-dark-2">*</span></label>
+                            <input type="text" name="name" class="form-control form-control-sm" placeholder="Enter Name"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Priority <span class="red-dark-2">*</span></label>
+                            <input type="text" name="name" class="form-control form-control-sm" placeholder="Enter Name"
+                                   required>
                         </div>
 
+                        <div class="col-md-2 mt-30">
+                            <div class="custom-control custom-checkbox checkbox-primary">
+                                <input type="checkbox" class="custom-control-input" id="active" name="active">
+                                <label class="custom-control-label" for="active">Status</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 mt-30">
+                            <div class="custom-control custom-checkbox checkbox-primary">
+                                <input type="checkbox" class="custom-control-input" id="hasLink" name="hasLink">
+                                <label class="custom-control-label" for="hasLink">Has Link?</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 mt-30">
+                            <div class="custom-control custom-checkbox checkbox-primary">
+                                <input type="checkbox" class="custom-control-input" id="sidebar" name="sidebar">
+                                <label class="custom-control-label" for="sidebar">Is Sidebar?</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Parent Menu <span class="red-dark-2"></span></label>
+                            <select class="form-control form-control-sm select2">
+                                <option>Select</option>
+                                <option value="1">item 1</option>
+                                <option value="2">item 2</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 mt-30">
+                            <div class="custom-control custom-checkbox checkbox-primary">
+                                <input type="checkbox" class="custom-control-input" id="apiParent" name="apiParent">
+                                <label class="custom-control-label" for="apiParent">API Parent</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 mt-30">
+                            <div class="custom-control custom-checkbox checkbox-primary">
+                                <input type="checkbox" class="custom-control-input" id="isParent" name="isParent">
+                                <label class="custom-control-label" for="isParent">Is Parent?</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

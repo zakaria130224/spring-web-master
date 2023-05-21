@@ -24,6 +24,10 @@
 <script src="${pageContext.request.contextPath}/assets/plugins/jquery-toggles/toggles.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/dist/js/toggle-data.js"></script>
 
+<!-- Select2-->
+<script src="${pageContext.request.contextPath}/assets/plugins/select2/dist/js/select2.full.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/dist/js/select2-data.js"></script>
+
 <!-- Init JavaScript -->
 <script src="${pageContext.request.contextPath}/assets/dist/js/init.js"></script>
 

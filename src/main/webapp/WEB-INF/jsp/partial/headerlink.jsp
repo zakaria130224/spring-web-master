@@ -21,8 +21,8 @@
     <link href="${pageContext.request.contextPath}/assets/plugins/bootstrap-table/bootstrap-table.min.css"
           rel="stylesheet"/>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/assets/plugins/select2-bootstrap-5-theme-1.3.0/select2-bootstrap-5-theme.min.css"/>
+    <%--    <link rel="stylesheet"--%>
+    <%--          href="${pageContext.request.contextPath}/assets/plugins/select2-bootstrap-5-theme-1.3.0/select2-bootstrap-5-theme.min.css"/>--%>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/assets/plugins/bootstrap-datepicker-1.9.0-dist/css/bootstrap-datepicker.min.css"/>
 
@@ -36,6 +36,9 @@
     <link href="${pageContext.request.contextPath}/assets/plugins/jquery-toggles/css/toggles.css" rel="stylesheet"
           type="text/css">
     <link href="${pageContext.request.contextPath}/assets/plugins/jquery-toggles/css/themes/toggles-light.css"
+          rel="stylesheet" type="text/css">
+    <!--Select2 -->
+    <link href="${pageContext.request.contextPath}/assets/plugins/select2/dist/css/select2.min.css"
           rel="stylesheet" type="text/css">
 
     <!-- Template CSS -->

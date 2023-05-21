@@ -7,7 +7,7 @@ import com.xyz.bd.webmaster.Models.common.ResponseModel.ResponseHeader;
 public class Constant {
     public static ResponseHeader generalSuccess = new ResponseHeader(0, "Operations Success");
     public static ResponseHeader generalFailed = new ResponseHeader(1, "Operations Failed");
-    public static String applicationName = "DSC_MS";
+    public static String applicationName = "web-master";
 
     public static DTOStatus srOpenStatus = new DTOStatus(1, "Open");
     public static DTOStatus srInProgressStatus = new DTOStatus(2, "In Progress");

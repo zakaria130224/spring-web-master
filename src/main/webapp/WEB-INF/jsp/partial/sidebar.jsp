@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- Vertical Nav -->
-<nav class="hk-nav hk-nav-light">
+<nav class="hk-nav hk-nav-dark">
     <a href="javascript:void(0);" id="hk_nav_close" class="hk-nav-close"><span class="feather-icon"><i
             data-feather="x"></i></span></a>
     <div class="nicescroll-bar">
@@ -24,7 +24,8 @@
                         <li class="nav-item">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="profile.html">Menu</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/menu"><i
+                                            class="fa fa-list"></i><span>Menu</span> </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="invoice.html">Responsibility</a>
@@ -34,8 +35,8 @@
                                 </li>
                                 <li class="nav-item">
 
-                                    <a class="nav-link" href="${pageContext.request.contextPath}/user"><span><i
-                                            class="ion ion-md-contact"></i> User</span></a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/user"><i
+                                            class="ion ion-md-contact"></i><span> User</span></a>
                                 </li>
                             </ul>
                         </li>

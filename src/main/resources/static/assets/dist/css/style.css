@@ -19787,7 +19787,8 @@ Project:	dashgrin
 }
 
 .hk-wrapper.hk-vertical-nav .hk-nav.hk-nav-dark .navbar-nav .nav-item .nav-link:hover, .hk-wrapper.hk-vertical-nav .hk-nav.hk-nav-dark .navbar-nav .nav-item .nav-link:focus {
-    color: rgba(255, 255, 255, 0.8);
+    background: rgb(0 172 240);
+    color: #FFFFFF;
 }
 
 .hk-wrapper.hk-vertical-nav .hk-nav.hk-nav-dark .navbar-nav .nav-item.active > .nav-link {
