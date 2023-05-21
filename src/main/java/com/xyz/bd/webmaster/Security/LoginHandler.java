@@ -1,6 +1,7 @@
 package com.xyz.bd.webmaster.Security;
 
 
+import com.xyz.bd.webmaster.Config.session.SessionManager;
 import com.xyz.bd.webmaster.Models.UserManagement.Entities.AppUser;
 import com.xyz.bd.webmaster.Repositories.UserManagement.AppUserRepository;
 import org.slf4j.Logger;
@@ -50,7 +51,7 @@ public class LoginHandler implements AuthenticationSuccessHandler {
 //                } else {
 //                    redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, ConstantGlobal.DEFAULT_OTP_ERROR);
 //                }
-//                SessionManager.initSession(httpServletRequest, mdUserModel, menuManager.getPermittedMenusMaster(mdUserModel));
+                SessionManager.initSession(httpServletRequest, appUser, null);
 
                 redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/home");
             }

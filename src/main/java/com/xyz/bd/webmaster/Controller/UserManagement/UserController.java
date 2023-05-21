@@ -1,5 +1,7 @@
 package com.xyz.bd.webmaster.Controller.UserManagement;
 
+import com.xyz.bd.webmaster.Config.session.SessionConstants;
+import com.xyz.bd.webmaster.Config.session.SessionManager;
 import com.xyz.bd.webmaster.Models.UserManagement.DTOs.DTOUser;
 import com.xyz.bd.webmaster.Models.UserManagement.Entities.AppUser;
 import com.xyz.bd.webmaster.Repositories.UserManagement.AppUserRepository;
@@ -29,6 +31,8 @@ public class UserController {
         //new MenuViewer().setupSideMenu(model, request);
         model.addAttribute("title", "Dashboard");
         model.addAttribute("success", "hello hi.......");
+
+        //SessionManager.getAttribute(SessionConstants.USER_DETAILS_XYZ.name(), request);
         return new ModelAndView("user/index");
         //return appUserRepository.findAll(new CustomSpecifier<AppUser>().textInAllColumns("xyz.com"));
     }

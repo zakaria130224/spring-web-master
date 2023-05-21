@@ -4,12 +4,13 @@ import com.xyz.bd.webmaster.Models.common.Entities.BaseEntity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
 @Entity
 @Table(name = "MD_USER")
-public class AppUser extends BaseEntity {
+public class AppUser extends BaseEntity implements Serializable {
 
     @Column(name = "NAME")
     private String name;
