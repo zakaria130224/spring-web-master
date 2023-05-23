@@ -4,6 +4,9 @@ package com.xyz.bd.webmaster.Utility;
 import com.xyz.bd.webmaster.Models.common.DTOs.DTOStatus;
 import com.xyz.bd.webmaster.Models.common.ResponseModel.ResponseHeader;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+
 public class Constant {
     public static ResponseHeader generalSuccess = new ResponseHeader(0, "Operations Success");
     public static ResponseHeader generalFailed = new ResponseHeader(1, "Operations Failed");
@@ -27,5 +30,16 @@ public class Constant {
     // Reset Type
     public static String resetTypeForce = "Force";
     public static String resetTypeSelf = "Self";
+
+    public static Object mergeObject(Object obj1, Object obj2) throws Exception {
+        Field[] allFields = obj1.getClass().getDeclaredFields();
+        for (Field field : allFields) {
+            field.set(obj1, field.get(obj2));
+//            if (Modifier.isPublic(field.getModifiers()) && field.isAccessible() && field.get(obj1) == null && field.get(obj2) != null) {
+//                field.set(obj1, field.get(obj2));
+//            }
+        }
+        return obj1;
+    }
 
 }

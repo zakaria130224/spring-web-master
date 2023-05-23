@@ -79,19 +79,11 @@ function viewEditModal(id) {
 
     $.ajax({
         type: 'GET',
-        url: base_url + "/user/update/" + id,
+        url: base_url + "/menu/update/" + id,
         success: function (data) {
-            console.log(data)
+            //console.log(data)
             $("#updateModalBody").html(data);
-            // $(".spinner-overlay").hide();
-            // $("#id").val(id);
-            // $("#name").val(data.name);
-            // if (data.active == 1) {
-            //     $("#active").prop('checked', true);
-            // } else {
-            //     $("#active").prop('checked', false);
-            // }
-
+            enableSelect2();
         },
         error: function (data) {
             console.log(data)
@@ -99,3 +91,12 @@ function viewEditModal(id) {
     });
 
 }
+
+function enableSelect2() {
+    $(".select2").select2();
+    $("#input_tags").select2({
+        tags: true,
+        tokenSeparators: [',', ' ']
+    });
+}
+

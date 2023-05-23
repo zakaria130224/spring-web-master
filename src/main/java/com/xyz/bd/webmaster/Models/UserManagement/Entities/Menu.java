@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +15,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "MD_MENU")
+@DynamicUpdate
 public class Menu extends BaseEntity {
 
 
@@ -55,4 +58,7 @@ public class Menu extends BaseEntity {
     @Column(name = "ACTIVE")
     private boolean active;
 
+//    public int getActive() {
+//        return this.active == true ? 1 : 0;
+//    }
 }

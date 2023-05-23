@@ -36,7 +36,8 @@ public class SessionManager {
         //request.getSession().setAttribute(SessionConstants.PERMITTED_MENUS_XYZ.name(), menuModelItemRedisList);
         request.getSession().setAttribute(SessionConstants.USER_DETAILS_XYZ.name(), users);
     }
-//
+
+    //
 //    public static void initMenu(HttpServletRequest request, List<MenuModelItemRedis> menuModelItemRedisList) {
 //        request.getSession().setAttribute(SessionConstants.PERMITTED_MENUS_XYZ.name(), menuModelItemRedisList);
 //    }
@@ -55,19 +56,19 @@ public class SessionManager {
 //        return menuModelItemRedisList;
 //    }
 //
-//    public synchronized static MDUserModel getUserDetails(HttpServletRequest request) {
-//        MDUserModel mdUserModel = new MDUserModel();
-//        if (request.getSession().getAttribute(SessionConstants.IS_LOGGED_IN_XYZ.name()) != null && ((Boolean) request.getSession().getAttribute(SessionConstants.IS_LOGGED_IN_XYZ.name()))
-//                && request.getSession().getAttribute(SessionConstants.USER_DETAILS_XYZ.name()) != null) {
-//            try {
-//                mdUserModel = (MDUserModel) request.getSession().getAttribute(SessionConstants.USER_DETAILS_XYZ.name());
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                logger.error(e.getMessage(), e);
-//            }
-//        }
-//        return mdUserModel;
-//    }
+    public synchronized static AppUser getUserDetails(HttpServletRequest request) {
+        AppUser mdUserModel = new AppUser();
+        if (request.getSession().getAttribute(SessionConstants.IS_LOGGED_IN_XYZ.name()) != null && ((Boolean) request.getSession().getAttribute(SessionConstants.IS_LOGGED_IN_XYZ.name()))
+                && request.getSession().getAttribute(SessionConstants.USER_DETAILS_XYZ.name()) != null) {
+            try {
+                mdUserModel = (AppUser) request.getSession().getAttribute(SessionConstants.USER_DETAILS_XYZ.name());
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.error(e.getMessage(), e);
+            }
+        }
+        return mdUserModel;
+    }
 
 //    public static Map<String, Object> getAllData(HttpServletRequest request) {
 //        Map<String, Object> data = new HashMap<>();
@@ -84,23 +85,23 @@ public class SessionManager {
 //        }
 //    }
 
-//    public synchronized static long getUserID(HttpServletRequest request) {
-//        MDUserModel mdUserModel = getUserDetails(request);
-//        if (mdUserModel.getID() != null) {
-//            return mdUserModel.getID();
-//        } else {
-//            return -1;
-//        }
-//    }
-//
-//    public synchronized static String getUserLoginName(HttpServletRequest request) {
-//        MDUserModel mdUserModel = getUserDetails(request);
-//        if (mdUserModel.getLOGIN_NAME() != null) {
-//            return mdUserModel.getLOGIN_NAME();
-//        } else {
-//            return "";
-//        }
-//    }
+    public synchronized static long getUserID(HttpServletRequest request) {
+        AppUser mdUserModel = getUserDetails(request);
+        if (mdUserModel.getId() != null) {
+            return mdUserModel.getId();
+        } else {
+            return -1;
+        }
+    }
+
+    public synchronized static String getUserLoginName(HttpServletRequest request) {
+        AppUser mdUserModel = getUserDetails(request);
+        if (mdUserModel.getLoginName() != null) {
+            return mdUserModel.getLoginName();
+        } else {
+            return "";
+        }
+    }
 
     public static void logoutUser(HttpServletRequest request) {
         try {

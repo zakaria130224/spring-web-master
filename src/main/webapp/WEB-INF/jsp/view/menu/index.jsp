@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../../partial/headerlink.jsp"></jsp:include>
 
 
@@ -122,26 +123,27 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Menu URL <span class="red-dark-2">*</span></label>
-                            <input type="text" name="name" class="form-control form-control-sm" placeholder="Enter Name"
-                                   required>
+                            <input type="text" name="menuUrl" class="form-control form-control-sm"
+                            >
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label>Icon Class <span class="red-dark-2">*</span></label>
-                            <input type="text" name="name" class="form-control form-control-sm" placeholder="Enter Name"
+                            <input type="text" name="iconClass" class="form-control form-control-sm"
                                    required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Description <span class="red-dark-2">*</span></label>
-                            <input type="text" name="name" class="form-control form-control-sm" placeholder="Enter Name"
-                                   required>
+                            <input type="text" name="description" class="form-control form-control-sm">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label>Priority <span class="red-dark-2">*</span></label>
-                            <input type="text" name="name" class="form-control form-control-sm" placeholder="Enter Name"
+                            <input type="number" name="priority" class="form-control form-control-sm"
+                                   min="0"
+                                   value="0"
                                    required>
                         </div>
 
@@ -159,7 +161,7 @@
                         </div>
                         <div class="col-md-2 mt-30">
                             <div class="custom-control custom-checkbox checkbox-primary">
-                                <input type="checkbox" class="custom-control-input" id="sidebar" name="sidebar">
+                                <input type="checkbox" class="custom-control-input" id="sidebar" name="sidebarMenu">
                                 <label class="custom-control-label" for="sidebar">Is Sidebar?</label>
                             </div>
                         </div>
@@ -168,21 +170,25 @@
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label>Parent Menu <span class="red-dark-2"></span></label>
-                            <select class="form-control form-control-sm select2">
-                                <option>Select</option>
-                                <option value="1">item 1</option>
-                                <option value="2">item 2</option>
+                            <select class="form-control form-control-sm select2" name="parentId">
+                                <option class="form-control form-control-sm" value="0">--None--</option>
+                                <c:forEach var="item" items="${menus}">
+                                    <c:if test="${item.parent == true}">
+                                        <option class="form-control form-control-sm"
+                                                value="${item.id}">${item.name}</option>
+                                    </c:if>
+                                </c:forEach>
                             </select>
                         </div>
                         <div class="col-md-2 mt-30">
                             <div class="custom-control custom-checkbox checkbox-primary">
-                                <input type="checkbox" class="custom-control-input" id="apiParent" name="apiParent">
-                                <label class="custom-control-label" for="apiParent">API Parent</label>
+                                <input type="checkbox" class="custom-control-input" id="apiParent" name="api">
+                                <label class="custom-control-label" for="apiParent">Is API?</label>
                             </div>
                         </div>
                         <div class="col-md-2 mt-30">
                             <div class="custom-control custom-checkbox checkbox-primary">
-                                <input type="checkbox" class="custom-control-input" id="isParent" name="isParent">
+                                <input type="checkbox" class="custom-control-input" id="isParent" name="parent">
                                 <label class="custom-control-label" for="isParent">Is Parent?</label>
                             </div>
                         </div>
@@ -199,7 +205,7 @@
 </div>
 
 <!-- Update Modal forms-->
-<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModal"
+<div class="modal fade" id="updateModal" role="dialog" aria-labelledby="updateModal"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document" id="updateModalBody">
 
