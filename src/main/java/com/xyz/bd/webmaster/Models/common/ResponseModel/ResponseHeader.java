@@ -17,4 +17,8 @@ public class ResponseHeader {
         ResultCode = resultCode;
         ResultDesc = resultDesc;
     }
+
+    public String getResultCodeString() {
+        return ResultCode == 0 ? "success" : "warning";
+    }
 }

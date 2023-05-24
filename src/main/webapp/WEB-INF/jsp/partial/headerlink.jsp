@@ -44,6 +44,7 @@
     <!-- Template CSS -->
 
     <link href="${pageContext.request.contextPath}/assets/dist/css/style.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/assets/custom/css/custom.css" rel="stylesheet" type="text/css">
 
 </head>
 <input type="hidden" id="domain_url" name="domain_url" value="${pageContext.request.contextPath}">

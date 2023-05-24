@@ -11,3 +11,9 @@
     border: 1px solid rgba(0, 0, 0, .125);
     border-radius: 0.25rem;
 }
+
+
+.select2-selection--multiple .select2-selection__choice {
+    display: grid !important;
+    width: fit-content;
+}

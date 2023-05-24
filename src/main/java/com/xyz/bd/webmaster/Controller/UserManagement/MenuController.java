@@ -36,7 +36,7 @@ public class MenuController {
     private AppUserRepository appUserRepository;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView showUserPage(ModelMap model, HttpServletRequest request) {
+    public ModelAndView indexPage(ModelMap model, HttpServletRequest request) {
         List<Menu> menuList = menuRepository.findAllByActiveTrue();
         model.addAttribute("menus", menuList);
         model.addAttribute("title", "User Management");
@@ -69,7 +69,7 @@ public class MenuController {
 
     @PostMapping(value = "/update")
     public RedirectView update(Menu req, ModelMap model, RedirectAttributes attributes, HttpServletRequest request) throws Exception {
-        ///TODO: Add User
+        ///TODO: create service to check duplicate and save
         req.setUpdatedBySession(request);
         req.setUpdatedAt(Helper.getCurrentDate());
         menuRepository.save(req);
