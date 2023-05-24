@@ -37,11 +37,10 @@ public class ResponsibilityController {
     private ResponsibilityRepository responsibilityRepository;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView showUserPage(ModelMap model, HttpServletRequest request) {
+    public ModelAndView indexPage(ModelMap model, HttpServletRequest request) {
         List<Menu> menuList = menuRepository.findAllByActiveTrue();
         model.addAttribute("menus", menuList);
         model.addAttribute("title", "User Management");
-        //model.addAttribute("success", "hello hi.......");
         return new ModelAndView("responsibility/index");
     }
 

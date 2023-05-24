@@ -127,7 +127,6 @@
                                     type="checkbox"
                                     id="active"
                                     name="active"
-                            <%--                                    <c:if test="${info.active == true}">checked </c:if>--%>
 
                             />
                             <label for="active">Status</label>

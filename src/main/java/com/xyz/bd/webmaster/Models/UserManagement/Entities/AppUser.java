@@ -21,6 +21,9 @@ public class AppUser extends BaseEntity implements Serializable {
     @Column(name = "EMAIL")
     private String email;
 
+    @Column(name = "PHONE")
+    private String phone;
+
     @Column(name = "PASSWORD")
     private String password;
 

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../../partial/headerlink.jsp"></jsp:include>
 
 
@@ -69,12 +70,12 @@
                                             <thead class="thead-primary">
                                             <tr>
                                                 <%--                                                        <th>#</th>--%>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Username</th>
-                                                <th>Role</th>
-                                                <th>Role</th>
-                                                <th>Role</th>
+                                                <th>Name</th>
+                                                <th>Login Name</th>
+                                                <th>Email</th>
+                                                <th>Phone</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
                                             </tr>
                                             </thead>
                                         </table>
@@ -104,7 +105,7 @@
 <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="addUser"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <form name="f" action="saveUser" method="POST" modelAttribute="message">
+        <form name="f" method="POST" modelAttribute="message">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Modal title</h5>
@@ -113,24 +114,97 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-row">
-
-                        <div class="col-md-12 mb-12">
-                            <label>Name <span class="red-dark-2">*</span></label>
-                            <input type="text" name="name" class="form-control form-control-sm" placeholder="Enter Name"
-                                   required>
-                        </div>
-
-                        <div class="col-md-12 mb-12 mt-10">
-                            <label>Status </label>
-                            <input type="checkbox" value="1" name="active">
-                        </div>
+                    <div id="modalMsg">
 
                     </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Name <span class="red-dark-2">*</span></label>
+                            <input type="text" id="name" name="name" class="form-control form-control-sm"
+                                   placeholder="Enter Name"
+                                   required>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Login Name <span class="red-dark-2">*</span></label>
+                            <input type="text" id="loginName" name="loginName" class="form-control form-control-sm"
+                                   placeholder="Enter Login Name"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Email <span class="red-dark-2">*</span></label>
+                            <input type="email" id="email" name="email" class="form-control form-control-sm"
+                                   placeholder="Enter Email"
+                                   required>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Phone <span class="red-dark-2">*</span></label>
+                            <input type="tel" name="phone" id="phone" class="form-control form-control-sm"
+                                   placeholder="8801XXXXXXXXX"
+                                   pattern="^(880)?1\d{9}$"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 mt-5">
+                            <input
+                                    type="checkbox"
+                                    id="active"
+                                    name="active"
+
+                            />
+                            <label for="active">Status</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Responsibility <span class="red-dark-2"></span></label>
+                            <select class="form-control form-control-sm select2" name="responsibility"
+                                    id="responsibility">
+                                <option class="form-control form-control-sm"></option>
+                                <c:forEach var="item" items="${responsibility}">
+                                    <option class="form-control form-control-sm"
+                                            value="${item.id}">${item.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="col-md-2 mt-30">
+                            <input
+                                    type="checkbox"
+                                    id="primary"
+                                    name="primary"
+
+                            />
+                            <label for="primary">Is Primary?</label>
+                        </div>
+                        <div class="col-md-2 mt-30">
+                            <button type="button" class="btn btn-gradient-primary btn-sm" id="addRes">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="table-responsive">
+                        <table class="table table-hover w-100 display pb-30 " id="responsibilityTbl">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Is Primary</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" onclick="addUser()">Save changes</button>
                 </div>
             </div>
         </form>

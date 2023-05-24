@@ -5,6 +5,7 @@ import com.xyz.bd.webmaster.Config.session.SessionManager;
 import com.xyz.bd.webmaster.Models.UserManagement.DTOs.DTOUser;
 import com.xyz.bd.webmaster.Models.UserManagement.Entities.AppUser;
 import com.xyz.bd.webmaster.Repositories.UserManagement.AppUserRepository;
+import com.xyz.bd.webmaster.Repositories.UserManagement.ResponsibilityRepository;
 import com.xyz.bd.webmaster.Services.UserManagement.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -26,15 +27,15 @@ public class UserController {
     @Autowired
     private AppUserRepository appUserRepository;
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public ModelAndView showUserPage(ModelMap model, HttpServletRequest request) {
-        //new MenuViewer().setupSideMenu(model, request);
-        model.addAttribute("title", "Dashboard");
-        model.addAttribute("success", "hello hi.......");
+    @Autowired
+    private ResponsibilityRepository responsibilityRepository;
 
-        //SessionManager.getAttribute(SessionConstants.USER_DETAILS_XYZ.name(), request);
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public ModelAndView indexPage(ModelMap model, HttpServletRequest request) {
+        //new MenuViewer().setupSideMenu(model, request);
+        model.addAttribute("responsibility", responsibilityRepository.findAllByActiveTrue());
+        model.addAttribute("title", "Dashboard");
         return new ModelAndView("user/index");
-        //return appUserRepository.findAll(new CustomSpecifier<AppUser>().textInAllColumns("xyz.com"));
     }
 
 
