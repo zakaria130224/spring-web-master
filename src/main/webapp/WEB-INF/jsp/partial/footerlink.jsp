@@ -37,6 +37,8 @@
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/assets/plugins/spring_friendly_js/jquery.spring-friendly.js"></script>
 
+
+<script src="${pageContext.request.contextPath}/assets/custom/js/common.js"></script>
 <script>
     let base_url = $("#domain_url").val();
 </script>

@@ -1,15 +1,25 @@
 package com.xyz.bd.webmaster.Models.UserManagement.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xyz.bd.webmaster.Models.common.Entities.BaseEntity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
 @Table(name = "MD_USER")
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+@DynamicUpdate
 public class AppUser extends BaseEntity implements Serializable {
 
     @Column(name = "NAME")
@@ -71,6 +81,11 @@ public class AppUser extends BaseEntity implements Serializable {
 
     @Column(name = "LOCKED_DT")
     private Date lockedDt;
+
+    @OneToMany
+    @JoinColumn(name = "USER_ID", insertable = false, updatable = false)
+    @JsonIgnore
+    private List<AppUserResponsibilityMap> userResponsibilityMaps;
 
 
 }

@@ -1,11 +1,16 @@
 package com.xyz.bd.webmaster.Services.UserManagement;
 
 
+import com.xyz.bd.webmaster.Config.session.SessionManager;
+import com.xyz.bd.webmaster.Models.UserManagement.DTOs.DTOUser;
+import com.xyz.bd.webmaster.Models.UserManagement.DTOs.DTOUserResponsibilityMap;
+import com.xyz.bd.webmaster.Models.UserManagement.DTOs.ReqResponsibility;
+import com.xyz.bd.webmaster.Models.UserManagement.Entities.*;
+import com.xyz.bd.webmaster.Models.common.ResponseModel.FailedResponse;
+import com.xyz.bd.webmaster.Repositories.UserManagement.AppUserResponsibilityMapRepository;
 import com.xyz.bd.webmaster.Utility.Constant;
 import com.xyz.bd.webmaster.Models.common.ResponseModel.Response;
 import com.xyz.bd.webmaster.Models.UserManagement.DTOs.DTOResetPassword;
-import com.xyz.bd.webmaster.Models.UserManagement.Entities.AppUser;
-import com.xyz.bd.webmaster.Models.UserManagement.Entities.AppUserPasswordHistory;
 import com.xyz.bd.webmaster.Repositories.specifier.CustomSpecifier;
 import com.xyz.bd.webmaster.Repositories.UserManagement.AppUserDTRepository;
 import com.xyz.bd.webmaster.Repositories.UserManagement.AppUserPassHistoryRepository;
@@ -16,9 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +37,9 @@ public class AppUserService {
     private AppUserRepository appUserRepository;
     @Autowired
     private AppUserDTRepository appUserDTRepository;
+
+    @Autowired
+    private AppUserResponsibilityMapRepository appUserResponsibilityMapRepository;
 
     @Autowired
     private PasswordSecurity passwordSecurity;
@@ -144,5 +154,46 @@ public class AppUserService {
             logger.error(e.getMessage(), e);
         }
         return output;
+    }
+
+    @Transactional
+    public Response saveNewUser(DTOUser req, HttpServletRequest request) {
+
+        try {
+            AppUser appUser = AppUser.builder()
+                    .name(req.getName())
+                    .loginName(req.getLoginName())
+                    .email(req.getEmail())
+                    .phone(req.getPhone())
+                    .active(req.isActive())
+                    .createdBy(SessionManager.getUserLoginName(request))
+                    .build();
+
+            appUserRepository.save(appUser);
+
+
+            if (req.getMapList().size() > 0) {
+                List<AppUserResponsibilityMap> responsibilityMaps = new ArrayList<>();
+                for (DTOUserResponsibilityMap x : req.getMapList()) {
+                    AppUserResponsibilityMap userResponsibilityMap = AppUserResponsibilityMap.builder()
+                            .userId(appUser.getId())
+                            .responsibilityId(x.getResponsibilityId())
+                            .primary(x.isPrimary())
+                            .active(true)
+                            .createdBy(SessionManager.getUserLoginName(request))
+                            .build();
+                    responsibilityMaps.add(userResponsibilityMap);
+                }
+
+                appUserResponsibilityMapRepository.saveAll(responsibilityMaps);
+
+            }
+            return new Response(Constant.generalSuccess, null);
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+            return new Response(Constant.generalFailed, new FailedResponse(ex.getMessage()));
+        }
+
+
     }
 }
