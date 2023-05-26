@@ -213,7 +213,7 @@
 </div>
 
 <!-- Update Modal forms-->
-<div class="modal fade" id="updateUser" tabindex="-1" role="dialog" aria-labelledby="updateUser"
+<div class="modal fade" id="updateUser" role="dialog" aria-labelledby="updateUser"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document" id="userUpdateMdl">
 

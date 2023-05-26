@@ -56,23 +56,6 @@ $(document).ready(function () {
     addModalScript();
 });
 
-function viewEditModal(id) {
-    console.log(id);
-
-    $.ajax({
-        type: 'GET',
-        url: base_url + "/user/update/" + id,
-        success: function (data) {
-            console.log(data)
-            $("#userUpdateMdl").html(data);
-        },
-        error: function (data) {
-            console.log(data)
-        }
-    });
-
-}
-
 function addModalScript() {
     let DTable = $("#responsibilityTbl").DataTable({
         lengthMenu: [
@@ -148,6 +131,7 @@ function getMapTableData() {
         console.log(item)
         data.push({
             responsibilityId: item[0],
+            responsibilityName: item[1],
             primary: item[2],
         });
     })
@@ -203,6 +187,31 @@ function showMsg(data) {
                         </div>`;
     $("#modalMsg").html(msg);
 
+}
+
+function viewEditModal(id) {
+    console.log(id);
+
+    $.ajax({
+        type: 'GET',
+        url: base_url + "/user/update/" + id,
+        success: function (data) {
+            //console.log(data)
+            $("#userUpdateMdl").html(data);
+            //updateModalScript.init();
+        },
+        error: function (data) {
+            console.log(data)
+        }
+    });
+
+}
+
+var updateModalScript = {
+    init: function () {
+        enableSelect2();
+        addModalScript();
+    }
 }
 
 

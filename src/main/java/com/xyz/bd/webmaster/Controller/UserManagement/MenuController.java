@@ -1,6 +1,8 @@
 package com.xyz.bd.webmaster.Controller.UserManagement;
 
+import com.xyz.bd.webmaster.Config.session.SessionManager;
 import com.xyz.bd.webmaster.Models.UserManagement.DTOs.DTOUser;
+import com.xyz.bd.webmaster.Models.UserManagement.DTOs.MenuTree;
 import com.xyz.bd.webmaster.Models.UserManagement.Entities.Menu;
 import com.xyz.bd.webmaster.Repositories.UserManagement.AppUserRepository;
 import com.xyz.bd.webmaster.Repositories.UserManagement.MenuRepository;
@@ -11,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,7 +43,8 @@ public class MenuController {
         List<Menu> menuList = menuRepository.findAllByActiveTrue();
         model.addAttribute("menus", menuList);
         model.addAttribute("title", "User Management");
-        //model.addAttribute("success", "hello hi.......");
+//        List<MenuTree> menus = menuService.getPermittedMenusByUserId(10022l);
+        List<MenuTree> menus = SessionManager.getPermittedMenuList(request);
         return new ModelAndView("menu/index");
     }
 
@@ -79,6 +83,12 @@ public class MenuController {
     @RequestMapping(value = "/DtData", method = RequestMethod.GET)
     public DataTablesOutput<Menu> DTMenu(@Valid DataTablesInput input, HttpServletRequest request) {
         return menuService.DTData(input, request);
+    }
+
+
+    @ModelAttribute
+    public void addAttributes(ModelMap model) {
+        model.addAttribute("success", "Your message in here!");
     }
 
 }

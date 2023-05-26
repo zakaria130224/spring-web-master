@@ -26,7 +26,7 @@ public class AppUserResponsibilityMap extends BaseEntity {
     private Long responsibilityId;
 
     @Column(name = "RESPONSIBILITY_NAME")
-    private Long responsibilityName;
+    private String responsibilityName;
 
     @Column(name = "IS_PRIMARY")
     private boolean primary;

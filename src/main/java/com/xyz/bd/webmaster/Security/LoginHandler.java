@@ -4,6 +4,7 @@ package com.xyz.bd.webmaster.Security;
 import com.xyz.bd.webmaster.Config.session.SessionManager;
 import com.xyz.bd.webmaster.Models.UserManagement.Entities.AppUser;
 import com.xyz.bd.webmaster.Repositories.UserManagement.AppUserRepository;
+import com.xyz.bd.webmaster.Services.UserManagement.MenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class LoginHandler implements AuthenticationSuccessHandler {
     @Autowired
     private AppUserRepository appUserRepository;
 
-//    @Autowired
-//    private MenuManager menuManager;
+    @Autowired
+    private MenuService menuService;
 //    @Autowired
 //    private OtpHandlerService otpHandlerService;
 
@@ -51,7 +52,7 @@ public class LoginHandler implements AuthenticationSuccessHandler {
 //                } else {
 //                    redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, ConstantGlobal.DEFAULT_OTP_ERROR);
 //                }
-                SessionManager.initSession(httpServletRequest, appUser, null);
+                SessionManager.initSession(httpServletRequest, appUser, menuService.getPermittedMenusByUserId(appUser.getId()));
 
                 redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/home");
             }

@@ -66,7 +66,8 @@ public class UserController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public ModelAndView updateUserLoad(@PathVariable Long id, ModelMap model, HttpServletRequest request) {
         ///TODO: Add User
-        model.addAttribute("info", appUserRepository.findFirstById(id));
+        model.addAttribute("user", appUserRepository.findFirstById(id));
+        model.addAttribute("responsibility", appUserService.getResponsibilityByUserId(id));
         ModelAndView modelAndView = new ModelAndView("user/update");
         return modelAndView;
     }

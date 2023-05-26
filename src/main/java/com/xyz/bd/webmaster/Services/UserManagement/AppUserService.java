@@ -7,14 +7,11 @@ import com.xyz.bd.webmaster.Models.UserManagement.DTOs.DTOUserResponsibilityMap;
 import com.xyz.bd.webmaster.Models.UserManagement.DTOs.ReqResponsibility;
 import com.xyz.bd.webmaster.Models.UserManagement.Entities.*;
 import com.xyz.bd.webmaster.Models.common.ResponseModel.FailedResponse;
-import com.xyz.bd.webmaster.Repositories.UserManagement.AppUserResponsibilityMapRepository;
+import com.xyz.bd.webmaster.Repositories.UserManagement.*;
 import com.xyz.bd.webmaster.Utility.Constant;
 import com.xyz.bd.webmaster.Models.common.ResponseModel.Response;
 import com.xyz.bd.webmaster.Models.UserManagement.DTOs.DTOResetPassword;
 import com.xyz.bd.webmaster.Repositories.specifier.CustomSpecifier;
-import com.xyz.bd.webmaster.Repositories.UserManagement.AppUserDTRepository;
-import com.xyz.bd.webmaster.Repositories.UserManagement.AppUserPassHistoryRepository;
-import com.xyz.bd.webmaster.Repositories.UserManagement.AppUserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +34,9 @@ public class AppUserService {
     private AppUserRepository appUserRepository;
     @Autowired
     private AppUserDTRepository appUserDTRepository;
+
+    @Autowired
+    private ResponsibilityRepository responsibilityRepository;
 
     @Autowired
     private AppUserResponsibilityMapRepository appUserResponsibilityMapRepository;
@@ -178,6 +178,7 @@ public class AppUserService {
                     AppUserResponsibilityMap userResponsibilityMap = AppUserResponsibilityMap.builder()
                             .userId(appUser.getId())
                             .responsibilityId(x.getResponsibilityId())
+                            .responsibilityName(x.getResponsibilityName())
                             .primary(x.isPrimary())
                             .active(true)
                             .createdBy(SessionManager.getUserLoginName(request))
@@ -195,5 +196,9 @@ public class AppUserService {
         }
 
 
+    }
+
+    public List<Responsibility> getResponsibilityByUserId(Long usrId) {
+        return responsibilityRepository.findAllByUserIdExceptMapped(usrId);
     }
 }

@@ -1,5 +1,6 @@
 package com.xyz.bd.webmaster.Config.session;
 
+import com.xyz.bd.webmaster.Models.UserManagement.DTOs.MenuTree;
 import com.xyz.bd.webmaster.Models.UserManagement.Entities.AppUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,31 +32,31 @@ public class SessionManager {
         } else return 0;
     }
 
-    public static void initSession(HttpServletRequest request, AppUser users, List<String> menuModelItemRedisList) {
+    public static void initSession(HttpServletRequest request, AppUser users, List<MenuTree> menuTrees) {
         request.getSession().setAttribute(SessionConstants.IS_LOGGED_IN_XYZ.name(), true);
-        //request.getSession().setAttribute(SessionConstants.PERMITTED_MENUS_XYZ.name(), menuModelItemRedisList);
+        request.getSession().setAttribute(SessionConstants.PERMITTED_MENUS_XYZ.name(), menuTrees);
         request.getSession().setAttribute(SessionConstants.USER_DETAILS_XYZ.name(), users);
     }
 
-    //
-//    public static void initMenu(HttpServletRequest request, List<MenuModelItemRedis> menuModelItemRedisList) {
-//        request.getSession().setAttribute(SessionConstants.PERMITTED_MENUS_XYZ.name(), menuModelItemRedisList);
-//    }
-//
-//    public synchronized static List<MenuModelItemRedis> getPermittedMenuList(HttpServletRequest request) {
-//        List<MenuModelItemRedis> menuModelItemRedisList = new ArrayList<>();
-//        if (request.getSession().getAttribute(SessionConstants.IS_LOGGED_IN_XYZ.name()) != null && ((Boolean) request.getSession().getAttribute(SessionConstants.IS_LOGGED_IN_XYZ.name()))
-//                && request.getSession().getAttribute(SessionConstants.PERMITTED_MENUS_XYZ.name()) != null) {
-//            try {
-//                menuModelItemRedisList = (List<MenuModelItemRedis>) request.getSession().getAttribute(SessionConstants.PERMITTED_MENUS_XYZ.name());
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                logger.error(e.getMessage(), e);
-//            }
-//        }
-//        return menuModelItemRedisList;
-//    }
-//
+
+    public static void initMenu(HttpServletRequest request, List<MenuTree> menuModelItemRedisList) {
+        request.getSession().setAttribute(SessionConstants.PERMITTED_MENUS_XYZ.name(), menuModelItemRedisList);
+    }
+
+    public synchronized static List<MenuTree> getPermittedMenuList(HttpServletRequest request) {
+        List<MenuTree> menuModelItemRedisList = new ArrayList<>();
+        if (request.getSession().getAttribute(SessionConstants.IS_LOGGED_IN_XYZ.name()) != null && ((Boolean) request.getSession().getAttribute(SessionConstants.IS_LOGGED_IN_XYZ.name()))
+                && request.getSession().getAttribute(SessionConstants.PERMITTED_MENUS_XYZ.name()) != null) {
+            try {
+                menuModelItemRedisList = (List<MenuTree>) request.getSession().getAttribute(SessionConstants.PERMITTED_MENUS_XYZ.name());
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.error(e.getMessage(), e);
+            }
+        }
+        return menuModelItemRedisList;
+    }
+
     public synchronized static AppUser getUserDetails(HttpServletRequest request) {
         AppUser mdUserModel = new AppUser();
         if (request.getSession().getAttribute(SessionConstants.IS_LOGGED_IN_XYZ.name()) != null && ((Boolean) request.getSession().getAttribute(SessionConstants.IS_LOGGED_IN_XYZ.name()))

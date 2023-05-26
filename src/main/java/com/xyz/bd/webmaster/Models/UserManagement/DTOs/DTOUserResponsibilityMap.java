@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 public class DTOUserResponsibilityMap {
 
     private Long responsibilityId;
+    private String responsibilityName;
     private boolean primary;
 
 }
