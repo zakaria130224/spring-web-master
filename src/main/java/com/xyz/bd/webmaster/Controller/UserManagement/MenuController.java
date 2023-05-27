@@ -86,9 +86,4 @@ public class MenuController {
     }
 
 
-    @ModelAttribute
-    public void addAttributes(ModelMap model) {
-        model.addAttribute("success", "Your message in here!");
-    }
-
 }

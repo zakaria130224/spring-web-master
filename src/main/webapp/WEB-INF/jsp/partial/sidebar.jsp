@@ -40,7 +40,8 @@
 
                 <%if (item.getChild().size() > 0) {%>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" data-target="#tt<%=item.getId()%>">
+                    <a class="nav-link" aria-expanded="true" href="#" data-toggle="collapse"
+                       data-target="#tt<%=item.getId()%>">
                         <i class="<%=item.getIconClass()%>"></i>
                         <span class="nav-link-text"><%=item.getName()%></span>
                     </a>
@@ -66,6 +67,46 @@
                                 </li>
                                 <%} %>
                                 <%} %>
+                                <!--2nd Child-->
+                                <%if (child1.getChild().size() > 0) {%>
+                                <li class="nav-item">
+                                    <a class="nav-link" aria-expanded="true" href="#" data-toggle="collapse"
+                                       data-target="#tt<%=child1.getId()%>">
+                                        <i class="<%=child1.getIconClass()%>"></i>
+                                        <span class="nav-link-text"><%=child1.getName()%></span>
+                                    </a>
+                                    <ul id="tt<%=child1.getId()%>" class="nav flex-column collapse collapse-level-1">
+                                        <li class="nav-item">
+                                            <ul class="nav flex-column">
+                                                <% for (MenuTree child2 : child1.getChild()) {%>
+                                                <%--                                                <%if (child2.getChild().size() == 0) {%>--%>
+                                                <%if (child2.isHasLink()) {%>
+                                                <li class="nav-item">
+                                                    <a class="nav-link"
+                                                       href="${pageContext.request.contextPath}/<%=child2.getMenuUrl()%>">
+                                                        <i class="<%=child2.getIconClass()%>"></i>
+                                                        <span class="nav-link-text"><%=child2.getName()%></span>
+                                                    </a>
+                                                </li>
+                                                <%} else { %>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#">
+                                                        <i class="<%=child2.getIconClass()%>"></i>
+                                                        <span class="nav-link-text"><%=child2.getName()%></span>
+                                                    </a>
+                                                </li>
+                                                <%} %>
+                                                <%--                                                <%} %>--%>
+
+
+                                                <%} %>
+
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <%}%>
+
                                 <%} %>
 
                             </ul>
