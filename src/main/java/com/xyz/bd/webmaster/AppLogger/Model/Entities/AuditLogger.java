@@ -26,6 +26,10 @@ public class AuditLogger {
     @JsonProperty("UserLoginName")
     private String userLoginName;
 
+    @Column(name = "USER_ID")
+    @JsonProperty("UserId")
+    private Long userId;
+
     @Column(name = "IP")
     @JsonProperty("IP")
     private String ip;

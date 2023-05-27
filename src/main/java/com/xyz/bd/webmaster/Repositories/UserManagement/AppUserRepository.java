@@ -1,6 +1,7 @@
 package com.xyz.bd.webmaster.Repositories.UserManagement;
 
 
+import com.xyz.bd.webmaster.Models.UserManagement.DTOs.DTOUserSession;
 import com.xyz.bd.webmaster.Models.UserManagement.Entities.AppUser;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.CrudRepository;
@@ -11,6 +12,8 @@ import java.util.List;
 @Repository
 public interface AppUserRepository extends CrudRepository<AppUser, Long> {
     AppUser findFirstById(long id);
+
+    DTOUserSession findFirstDTOUserSessionByLoginName(String loginName);
 
     AppUser findFirstByLoginName(String loginName);
 

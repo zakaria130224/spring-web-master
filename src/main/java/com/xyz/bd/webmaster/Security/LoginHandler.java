@@ -2,6 +2,7 @@ package com.xyz.bd.webmaster.Security;
 
 
 import com.xyz.bd.webmaster.Config.session.SessionManager;
+import com.xyz.bd.webmaster.Models.UserManagement.DTOs.DTOUserSession;
 import com.xyz.bd.webmaster.Models.UserManagement.Entities.AppUser;
 import com.xyz.bd.webmaster.Repositories.UserManagement.AppUserRepository;
 import com.xyz.bd.webmaster.Services.UserManagement.MenuService;
@@ -42,7 +43,15 @@ public class LoginHandler implements AuthenticationSuccessHandler {
         try {
             logger.info("onAuthenticationSuccess");
             AppUser appUser = appUserRepository.findFirstByLoginName(authentication.getName());
-            if (appUser != null) {
+            DTOUserSession dtoUserSession = DTOUserSession.builder()
+                    .id(appUser.getId())
+                    .name(appUser.getName())
+                    .loginName(appUser.getLoginName())
+                    .email(appUser.getEmail())
+                    .phone(appUser.getPhone())
+                    .active(appUser.isActive())
+                    .build();
+            if (dtoUserSession != null) {
 //                MDUserModel mdUserModel = usersList.get(0);
 //                logger.info("Login User: " + authentication.getDetails().toString());
 //                SessionManager.initSession(httpServletRequest, mdUserModel, new ArrayList<MenuModelItemRedis>());
@@ -52,7 +61,7 @@ public class LoginHandler implements AuthenticationSuccessHandler {
 //                } else {
 //                    redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, ConstantGlobal.DEFAULT_OTP_ERROR);
 //                }
-                SessionManager.initSession(httpServletRequest, appUser, menuService.getPermittedMenusByUserId(appUser.getId()));
+                SessionManager.initSession(httpServletRequest, dtoUserSession, menuService.getPermittedMenusByUserId(appUser.getId()));
 
                 redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/home");
             }

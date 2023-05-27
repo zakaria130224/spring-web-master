@@ -1,5 +1,6 @@
 package com.xyz.bd.webmaster.Config.session;
 
+import com.xyz.bd.webmaster.Models.UserManagement.DTOs.DTOUserSession;
 import com.xyz.bd.webmaster.Models.UserManagement.DTOs.MenuTree;
 import com.xyz.bd.webmaster.Models.UserManagement.Entities.AppUser;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class SessionManager {
         } else return 0;
     }
 
-    public static void initSession(HttpServletRequest request, AppUser users, List<MenuTree> menuTrees) {
+    public static void initSession(HttpServletRequest request, DTOUserSession users, List<MenuTree> menuTrees) {
         request.getSession().setAttribute(SessionConstants.IS_LOGGED_IN_XYZ.name(), true);
         request.getSession().setAttribute(SessionConstants.PERMITTED_MENUS_XYZ.name(), menuTrees);
         request.getSession().setAttribute(SessionConstants.USER_DETAILS_XYZ.name(), users);
@@ -57,12 +58,12 @@ public class SessionManager {
         return menuModelItemRedisList;
     }
 
-    public synchronized static AppUser getUserDetails(HttpServletRequest request) {
-        AppUser mdUserModel = new AppUser();
+    public synchronized static DTOUserSession getUserDetails(HttpServletRequest request) {
+        DTOUserSession mdUserModel = new DTOUserSession();
         if (request.getSession().getAttribute(SessionConstants.IS_LOGGED_IN_XYZ.name()) != null && ((Boolean) request.getSession().getAttribute(SessionConstants.IS_LOGGED_IN_XYZ.name()))
                 && request.getSession().getAttribute(SessionConstants.USER_DETAILS_XYZ.name()) != null) {
             try {
-                mdUserModel = (AppUser) request.getSession().getAttribute(SessionConstants.USER_DETAILS_XYZ.name());
+                mdUserModel = (DTOUserSession) request.getSession().getAttribute(SessionConstants.USER_DETAILS_XYZ.name());
             } catch (Exception e) {
                 e.printStackTrace();
                 logger.error(e.getMessage(), e);
@@ -87,7 +88,7 @@ public class SessionManager {
 //    }
 
     public synchronized static long getUserID(HttpServletRequest request) {
-        AppUser mdUserModel = getUserDetails(request);
+        DTOUserSession mdUserModel = getUserDetails(request);
         if (mdUserModel.getId() != null) {
             return mdUserModel.getId();
         } else {
@@ -96,7 +97,7 @@ public class SessionManager {
     }
 
     public synchronized static String getUserLoginName(HttpServletRequest request) {
-        AppUser mdUserModel = getUserDetails(request);
+        DTOUserSession mdUserModel = getUserDetails(request);
         if (mdUserModel.getLoginName() != null) {
             return mdUserModel.getLoginName();
         } else {

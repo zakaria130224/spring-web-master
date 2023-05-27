@@ -3,6 +3,9 @@ package com.xyz.bd.webmaster.AppLogger.Service;
 
 import com.xyz.bd.webmaster.AppLogger.Model.Entities.AuditLogger;
 import com.xyz.bd.webmaster.AppLogger.Repository.AuditLoggerRepository;
+import com.xyz.bd.webmaster.Config.session.SessionManager;
+import com.xyz.bd.webmaster.Models.UserManagement.DTOs.DTOUserSession;
+import com.xyz.bd.webmaster.Models.UserManagement.Entities.AppUser;
 import com.xyz.bd.webmaster.Utility.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,15 +28,15 @@ public class AuditLoggerService {
     @Autowired
     private AuditLoggerRepository auditLoggerRepository;
 
-    public void preparedAuditItem(HttpServletRequest request, String username, String loggerId) {
-        if (request != null && request.getRequestURI() != null && (!request.getRequestURI().contains("/assets/"))) {
+    public void preparedAuditItem(HttpServletRequest request, String loggerId) {
+        if (request != null && request.getRequestURI() != null && (!request.getRequestURI().contains("/assets/")) || (!request.getRequestURI().contains("favicon"))) {
             try {
                 AuditLogger app_logger = new AuditLogger();
-                //app_logger.setUSER_ID(SessionManager.getUserID(request));
-                if (request.getRequestURI().toLowerCase().contains("login"))
-                    app_logger.setUserLoginName(request.getHeader("username"));
-                else
-                    app_logger.setUserLoginName(username);
+
+                DTOUserSession appUser = SessionManager.getUserDetails(request);
+                app_logger.setUserLoginName(SessionManager.getUserLoginName(request));
+                app_logger.setUserId(SessionManager.getUserID(request));
+
                 if (request.getHeader("X-FORWARDED-FOR") == null || request.getHeader("X-FORWARDED-FOR").isEmpty()) {
                     app_logger.setIp(request.getRemoteAddr());
                 } else {
