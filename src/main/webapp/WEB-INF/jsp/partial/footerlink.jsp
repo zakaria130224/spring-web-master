@@ -18,8 +18,15 @@
 <script src="${pageContext.request.contextPath}/assets/dist/js/dropdown-bootstrap-extended.js"></script>
 
 <!-- Bootstrap-table JavaScript -->
-<script src="${pageContext.request.contextPath}/assets/plugins/bootstrap/bootstrap-table.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 
+<!-- Toggles JavaScript -->
+<script src="${pageContext.request.contextPath}/assets/plugins/jquery-toggles/toggles.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/dist/js/toggle-data.js"></script>
+
+<!-- Select2-->
+<script src="${pageContext.request.contextPath}/assets/plugins/select2/dist/js/select2.full.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/dist/js/select2-data.js"></script>
 
 <!-- Init JavaScript -->
 <script src="${pageContext.request.contextPath}/assets/dist/js/init.js"></script>
@@ -30,6 +37,8 @@
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/assets/plugins/spring_friendly_js/jquery.spring-friendly.js"></script>
 
+
+<script src="${pageContext.request.contextPath}/assets/custom/js/common.js"></script>
 <script>
     let base_url = $("#domain_url").val();
 </script>

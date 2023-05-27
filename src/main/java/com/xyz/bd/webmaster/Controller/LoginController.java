@@ -1,5 +1,6 @@
 package com.xyz.bd.webmaster.Controller;
 
+import com.xyz.bd.webmaster.Config.session.SessionManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,15 +50,15 @@ public class LoginController {
         return "login";
     }
 
-//    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-//    public String logout(HttpServletRequest request) {
-//        if (SessionManager.isControllerInValid(request)) {
-//            return "redirect:/login";
-//        } else {
-//            SessionManager.logoutUser(request);
-//            return "redirect:/login";
-//        }
-//    }
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest request) {
+        if (SessionManager.isControllerInValid(request)) {
+            return "redirect:/login";
+        } else {
+            SessionManager.logoutUser(request);
+            return "redirect:/login";
+        }
+    }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String showHomePage(ModelMap model, HttpServletRequest request) {
