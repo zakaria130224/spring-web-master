@@ -1,6 +1,7 @@
 package com.xyz.bd.webmaster.Security;
 
 
+import com.xyz.bd.webmaster.AppLogger.Service.AuditLoggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -26,6 +27,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+
+    @Autowired
+    private AuditLoggerService auditLoggerService;
 
     @Autowired
     void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -54,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .maximumSessions(1)
                 .expiredUrl("/login");
 
-        http.addFilterBefore(new CentralRequestFilter(), BasicAuthenticationFilter.class);
+        http.addFilterBefore(new CentralRequestFilter(auditLoggerService), BasicAuthenticationFilter.class);
     }
 
     @Override

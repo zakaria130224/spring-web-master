@@ -39,8 +39,8 @@ public class MenuService {
     public DataTablesOutput<Menu> DTData(@Valid DataTablesInput input, HttpServletRequest request) {
         DataTablesOutput<Menu> output = new DataTablesOutput<>();
         try {
-//            output = menuDTRepository.findAll(input, new CustomSpecifier<Menu>().textInAllColumns(input.getSearch().getValue()));
-            output = menuDTRepository.findAll(input);
+            output = menuDTRepository.findAll(input, new CustomSpecifier<Menu>().textInAllColumns(input.getSearch().getValue()));
+            //output = menuDTRepository.findAll(input);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -27,9 +27,13 @@ public class CentralRequestFilter extends OncePerRequestFilter {
 
     final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    @Autowired
-    private AuditLoggerService auditLoggerService;
+    //    @Autowired
+//    private AuditLoggerService auditLoggerService;
+    private final AuditLoggerService auditLoggerService;
 
+    public CentralRequestFilter(AuditLoggerService auditLoggerService) {
+        this.auditLoggerService = auditLoggerService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -62,8 +66,9 @@ public class CentralRequestFilter extends OncePerRequestFilter {
 //            }
 //            CachedBodyHttpServletRequest cachedBodyHttpServletRequest =
 //                    new CachedBodyHttpServletRequest(request);
-            filterChain.doFilter(request, response);
             auditLoggerService.preparedAuditItem(request, uuid);
+            filterChain.doFilter(request, response);
+
 
 //            APP_LOGGER app_logger = preparedAuditItem(request, modelItemRedis);
 //            if (app_logger != null) {
