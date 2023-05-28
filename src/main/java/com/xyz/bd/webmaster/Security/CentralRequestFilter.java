@@ -2,6 +2,7 @@ package com.xyz.bd.webmaster.Security;
 
 
 import com.xyz.bd.webmaster.AppLogger.Service.AuditLoggerService;
+import com.xyz.bd.webmaster.Utility.CachedBodyHttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -59,8 +60,11 @@ public class CentralRequestFilter extends OncePerRequestFilter {
 //                    e.printStackTrace();
 //                }
 //            }
-            auditLoggerService.preparedAuditItem(request, uuid);
+//            CachedBodyHttpServletRequest cachedBodyHttpServletRequest =
+//                    new CachedBodyHttpServletRequest(request);
             filterChain.doFilter(request, response);
+            auditLoggerService.preparedAuditItem(request, uuid);
+
 //            APP_LOGGER app_logger = preparedAuditItem(request, modelItemRedis);
 //            if (app_logger != null) {
 //                app_logger.setUNAUTHORIZED_ACCESS(0);
@@ -68,7 +72,7 @@ public class CentralRequestFilter extends OncePerRequestFilter {
 //            }
 
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             filterChain.doFilter(request, response);
         }
     }

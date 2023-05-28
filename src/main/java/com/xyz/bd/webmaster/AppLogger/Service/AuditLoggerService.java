@@ -11,12 +11,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.ContentCachingRequestWrapper;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -46,16 +48,34 @@ public class AuditLoggerService {
                 app_logger.setReqUri(getRequestUri(request.getRequestURI()));
                 app_logger.setServerIp(request.getLocalAddr());
                 app_logger.setReqMethod(request.getMethod());
-                String requestBody = "";
+                //String requestBody = "";
 
                 if ("POST".equalsIgnoreCase(request.getMethod())) {
+                    String requestBody = "";
                     try {
-                        requestBody = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+                        HttpServletRequest requestCacheWrapperObject
+                                = new ContentCachingRequestWrapper(request);
+                        requestBody = mapToString(requestCacheWrapperObject.getParameterMap());
+                        if (requestBody.isEmpty())
+                            requestBody = request.getQueryString();
+                        if (requestBody != null && !requestBody.isEmpty())
+                            requestBody = URLDecoder.decode(requestBody, "UTF-8");
 
-                        app_logger.setReqBody(requestBody.replaceAll("\\s+", " "));
+                        if (requestBody != null && requestBody.length() > 4000) {
+                            requestBody = requestBody.substring(0, 3999);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+//                    try {
+//                        requestBody = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+//
+//                        app_logger.setReqBody(requestBody.replaceAll("\\s+", " "));
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+
+                    app_logger.setReqBody(requestBody);
                 }
 //
 //                if ("GET".equalsIgnoreCase(request.getMethod())) {
