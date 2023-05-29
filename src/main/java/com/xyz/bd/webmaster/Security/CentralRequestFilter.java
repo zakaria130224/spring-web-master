@@ -2,11 +2,17 @@ package com.xyz.bd.webmaster.Security;
 
 
 import com.xyz.bd.webmaster.AppLogger.Service.AuditLoggerService;
+import com.xyz.bd.webmaster.Config.session.SessionConstants;
+import com.xyz.bd.webmaster.Config.session.SessionManager;
+import com.xyz.bd.webmaster.Models.UserManagement.DTOs.MenuTree;
+import com.xyz.bd.webmaster.Services.UserManagement.MenuService;
 import com.xyz.bd.webmaster.Utility.CachedBodyHttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
@@ -27,6 +33,8 @@ public class CentralRequestFilter extends OncePerRequestFilter {
 
     final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
+    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
     //    @Autowired
 //    private AuditLoggerService auditLoggerService;
     private final AuditLoggerService auditLoggerService;
@@ -39,34 +47,36 @@ public class CentralRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         try {
+            boolean isUnAuthrized = false;
             //MDC Configuration
             String uuid = UUID.randomUUID().toString();
             MDC.put("loggerId", uuid);
 
             logger.info("Request Uri: " + request.getRequestURI());
-//            MenuModelItemRedis modelItemRedis = null;
+            MenuTree modelItemRedis = null;
 //            if (!ConstantGlobal.isInDevelopment) {
-//                try {
-//                    if (request.getRequestURI() != null && isSessionValid(request) && !request.getRequestURI().contains("/assets/")) {
-//                        modelItemRedis = getMenuItem(request);
-//                        if (!response.isCommitted() && modelItemRedis == null) {
-//                            APP_LOGGER app_logger = auditLoggerService.preparedAuditItem(request, modelItemRedis);
-//                            if (app_logger != null) {
-//                                app_logger.setUNAUTHORIZED_ACCESS(1);
-//                                saveAuditItem(app_logger);
-//                            }
+            if (!request.getRequestURI().equals("/accessDenied")) {
+                try {
+                    if (request.getRequestURI() != null && isSessionValid(request) && !request.getRequestURI().contains("/assets/")) {
+                        modelItemRedis = getMenuItem(request);
+                        if (!response.isCommitted() && modelItemRedis == null) {
+                            //Will add unauth flag in table
+                            isUnAuthrized = true;
+                            auditLoggerService.preparedAuditItem(request, uuid);
+
 //                            String redirectURL = request.getContextPath() + "/accessDenied";
 //                            response.sendRedirect(redirectURL);
-//                            return;
-//                        }
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
+                            redirectStrategy.sendRedirect(request, response, "/accessDenied");
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 //            CachedBodyHttpServletRequest cachedBodyHttpServletRequest =
 //                    new CachedBodyHttpServletRequest(request);
-            auditLoggerService.preparedAuditItem(request, uuid);
+            if (!isUnAuthrized)
+                auditLoggerService.preparedAuditItem(request, uuid);
             filterChain.doFilter(request, response);
 
 
@@ -88,5 +98,55 @@ public class CentralRequestFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
         return request.getRequestURI().contains("/assets/") || request.getRequestURI().contains("favicon");
     }
+
+    public boolean isSessionValid(HttpServletRequest request) {
+        try {
+            return request.getSession().getAttribute(SessionConstants.IS_LOGGED_IN_XYZ.name()) != null &&
+                    ((Boolean) request.getSession().getAttribute(SessionConstants.IS_LOGGED_IN_XYZ.name()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error(e.getMessage(), e);
+        }
+        return false;
+    }
+
+    private MenuTree getMenuItem(HttpServletRequest request) {
+        try {
+            String requestURI = getRequestUri(request.getRequestURI());
+            long userId = SessionManager.getUserID(request);
+            if (userId < 0)
+                return null;
+
+            List<MenuTree> menuModelItemRedis = SessionManager.getPermittedMenuList(request);
+            if (menuModelItemRedis.isEmpty())
+                return null;
+            else {
+                for (MenuTree m : menuModelItemRedis) {
+                    if (m.getMenuUrl().equalsIgnoreCase(requestURI)) {
+                        return m;
+                    }
+                }
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private String getRequestUri(String uri) {
+        String requestURI = uri;
+        if (requestURI.startsWith("/") && requestURI.length() > 1)
+            requestURI = requestURI.substring(1);
+
+        if (requestURI.startsWith("web-master/") && requestURI.length() > 8) {
+            requestURI = requestURI.substring(8);
+        } else if (requestURI.startsWith("web-master/")) {
+            requestURI = requestURI.substring(7);
+        }
+
+        return requestURI;
+    }
+
 
 }

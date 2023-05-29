@@ -17,9 +17,10 @@
         <div class="modal-body">
             <div id="modalMsg"></div>
             <div class="row">
+                <input type="hidden" value="${user.id}" name="id" id="id">
                 <div class="col-md-6 form-group">
                     <label>Name <span class="red-dark-2">*</span></label>
-                    <input type="text" id="name" name="name" class="form-control form-control-sm"
+                    <input type="text" id="name_update" name="name" class="form-control form-control-sm"
                            placeholder="Enter Name"
                            required
                            value="${user.name}"
@@ -27,7 +28,7 @@
                 </div>
                 <div class="col-md-6 form-group">
                     <label>Login Name <span class="red-dark-2">*</span></label>
-                    <input type="text" id="loginName" name="loginName" class="form-control form-control-sm"
+                    <input type="text" id="loginName_update" name="loginName" class="form-control form-control-sm"
                            placeholder="Enter Login Name"
                            required
                            value="${user.loginName}"
@@ -38,7 +39,7 @@
             <div class="row">
                 <div class="col-md-6 form-group">
                     <label>Email <span class="red-dark-2">*</span></label>
-                    <input type="email" id="email" name="email" class="form-control form-control-sm"
+                    <input type="email" id="email_update" name="email" class="form-control form-control-sm"
                            placeholder="Enter Email"
                            required
                            value="${user.email}"
@@ -46,7 +47,7 @@
                 </div>
                 <div class="col-md-6 form-group">
                     <label>Phone <span class="red-dark-2">*</span></label>
-                    <input type="tel" name="phone" id="phone" class="form-control form-control-sm"
+                    <input type="tel" name="phone" id="phone_update" class="form-control form-control-sm"
                            placeholder="8801XXXXXXXXX"
                            pattern="^(880)?1\d{9}$"
                            required
@@ -58,11 +59,11 @@
                 <div class="col-md-2 mt-5">
                     <input
                             type="checkbox"
-                            id="active"
+                            id="active_update"
                             name="active"
                             <c:if test="${user.active == true}">checked </c:if>
                     />
-                    <label for="active">Status</label>
+                    <label for="active_update">Status</label>
                 </div>
             </div>
             <hr>
@@ -125,7 +126,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-primary" onclick="updateUser()">Save changes</button>
         </div>
     </div>
 </form>
@@ -189,5 +190,74 @@
             $("#primaryUpdate").prop('checked', false);
             $("#responsibilityUpdate").val("").change();
         }
+    }
+
+
+    function getUserData() {
+        let userData = {
+            id: $("#id").val(),
+            name: $("#name_update").val(),
+            active: $("#active_update").prop("checked") ? true : false,
+            loginName: $("#loginName_update").val(),
+            email: $("#email_update").val(),
+            phone: $("#phone_update").val(),
+
+            mapList: getMapTableData()
+        };
+        console.log(userData)
+        return userData;
+    }
+
+    function getMapTableData() {
+        let data = [];
+        $("#responsibilityUpdateTbl").DataTable().rows().data().toArray().forEach(item => {
+            console.log(item)
+            data.push({
+                responsibilityId: item[0],
+                responsibilityName: item[1],
+                primary: item[2],
+            });
+        })
+
+        return data;
+    }
+
+    function updateUser() {
+        let userData = getUserData();
+        if (!checkEmpty(userData)) {
+            return false;
+        }
+        $.ajax({
+            type: 'POST',
+            url: base_url + "/user/update",
+            data: {
+                dtoUser: JSON.stringify(userData)
+            },
+            success: function (res) {
+
+                if (res.ResponseHeader.ResultCode == 0) {
+                    $('#updateUser').modal('hide');
+                    showAlertMessage('success', res.ResponseHeader.ResultDesc);
+                    $('#userTbl').DataTable().ajax.reload();
+                } else {
+                    $('#updateUser').modal('hide');
+                    showAlertMessage('failed', res.ResponseHeader.ResultDesc);
+                }
+
+            },
+            error: function (resultData) {
+                $('#updateUser').modal('hide');
+                showAlertMessage('warning', "Something Went wrong!");
+            }
+        });
+    }
+
+    function checkEmpty(userData) {
+        if (userData.name == "") {
+            showMsg("Name can't be empty!")
+            return false;
+        }
+
+        return true;
     }
 </script>

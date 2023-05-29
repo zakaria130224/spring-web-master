@@ -10,5 +10,6 @@ import java.util.List;
 
 @Repository
 public interface AppUserResponsibilityMapRepository extends JpaRepository<AppUserResponsibilityMap, Long> {
+    List<AppUserResponsibilityMap> findAllByUserId(Long usrId);
 
 }

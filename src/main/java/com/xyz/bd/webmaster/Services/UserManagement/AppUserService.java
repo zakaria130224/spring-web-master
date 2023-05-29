@@ -12,6 +12,7 @@ import com.xyz.bd.webmaster.Utility.Constant;
 import com.xyz.bd.webmaster.Models.common.ResponseModel.Response;
 import com.xyz.bd.webmaster.Models.UserManagement.DTOs.DTOResetPassword;
 import com.xyz.bd.webmaster.Repositories.specifier.CustomSpecifier;
+import com.xyz.bd.webmaster.Utility.Helper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,6 +173,49 @@ public class AppUserService {
             appUserRepository.save(appUser);
 
 
+            if (req.getMapList().size() > 0) {
+                List<AppUserResponsibilityMap> responsibilityMaps = new ArrayList<>();
+                for (DTOUserResponsibilityMap x : req.getMapList()) {
+                    AppUserResponsibilityMap userResponsibilityMap = AppUserResponsibilityMap.builder()
+                            .userId(appUser.getId())
+                            .responsibilityId(x.getResponsibilityId())
+                            .responsibilityName(x.getResponsibilityName())
+                            .primary(x.isPrimary())
+                            .active(true)
+                            .createdBy(SessionManager.getUserLoginName(request))
+                            .build();
+                    responsibilityMaps.add(userResponsibilityMap);
+                }
+
+                appUserResponsibilityMapRepository.saveAll(responsibilityMaps);
+
+            }
+            return new Response(Constant.generalSuccess, null);
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+            return new Response(Constant.generalFailed, new FailedResponse(ex.getMessage()));
+        }
+
+
+    }
+
+    @Transactional
+    public Response updateUser(DTOUser req, HttpServletRequest request) {
+
+        try {
+            AppUser appUser = appUserRepository.findFirstById(req.getId());
+            appUser.setName(req.getName());
+            appUser.setLoginName(req.getLoginName());
+            appUser.setEmail(req.getEmail());
+            appUser.setPhone(req.getPhone());
+            appUser.setActive(req.isActive());
+            appUser.setUpdatedBy(SessionManager.getUserLoginName(request));
+            appUser.setUpdatedAt(Helper.getCurrentDate());
+
+            appUserRepository.save(appUser);
+
+
+            appUserResponsibilityMapRepository.deleteAll(appUserResponsibilityMapRepository.findAllByUserId(appUser.getId()));
             if (req.getMapList().size() > 0) {
                 List<AppUserResponsibilityMap> responsibilityMaps = new ArrayList<>();
                 for (DTOUserResponsibilityMap x : req.getMapList()) {

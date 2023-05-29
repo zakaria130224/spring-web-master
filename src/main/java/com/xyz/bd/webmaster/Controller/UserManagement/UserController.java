@@ -57,10 +57,13 @@ public class UserController {
     }
 
     @PostMapping(value = "/update")
-    public ModelAndView updateUser(DTOUser dtoUser, ModelMap model, RedirectAttributes attributes, HttpServletRequest request) {
-        ///TODO: Add User
-
-        return new ModelAndView("redirect:" + "user");
+    public Response updateUser(@RequestParam("dtoUser") String data, HttpServletRequest request) {
+        try {
+            DTOUser dtoUser = new Gson().fromJson(data, DTOUser.class);
+            return appUserService.updateUser(dtoUser, request);
+        } catch (Exception ex) {
+            return new Response(Constant.generalFailed, new FailedResponse(ex.getMessage()));
+        }
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
