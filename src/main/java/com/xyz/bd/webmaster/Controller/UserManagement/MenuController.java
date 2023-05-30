@@ -43,8 +43,8 @@ public class MenuController {
         List<Menu> menuList = menuRepository.findAllByActiveTrue();
         model.addAttribute("menus", menuList);
         model.addAttribute("title", "User Management");
-//        List<MenuTree> menus = menuService.getPermittedMenusByUserId(10022l);
-        List<MenuTree> menus = SessionManager.getPermittedMenuList(request);
+//        List<MenuTree> menus = menuService.getPermittedSideMenusByUserId(10022l);
+        List<MenuTree> menus = SessionManager.getPermittedSideMenuList(request);
         return new ModelAndView("menu/index");
     }
 

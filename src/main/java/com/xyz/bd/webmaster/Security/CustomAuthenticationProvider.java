@@ -69,6 +69,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
                     grantedAuthorities.add(new SimpleGrantedAuthority(appUser.getId().toString()));
                     return new UsernamePasswordAuthenticationToken(username, password, grantedAuthorities);
                 } else {
+
                     throw new BadCredentialsException("Invalid Credentials. Please contact with Administrator!");
                 }
             } else {

@@ -14,7 +14,7 @@ public class SideMenuControllerAdvice {
 
     @ModelAttribute
     public void sideMenuAdd(HttpServletRequest request, ModelMap model) {
-        List<MenuTree> menus = SessionManager.getPermittedMenuList(request);
+        List<MenuTree> menus = SessionManager.getPermittedSideMenuList(request);
         //Side menu
 
         model.addAttribute("sideMenu", menus);

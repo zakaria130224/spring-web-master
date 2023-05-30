@@ -50,8 +50,8 @@ public class MenuService {
     }
 
 
-    public List<MenuTree> getPermittedMenusByUserId(Long usrId) {
-        List<Menu> menus = menuRepository.findAllByUserId(usrId);
+    public List<MenuTree> getPermittedSideMenusByUserId(Long usrId) {
+        List<Menu> menus = menuRepository.findAllPermittedSideMenuByUserId(usrId);
         List<MenuTree> parent = menus.stream().filter(x -> x.getParentId() == 0)
                 .sorted(Comparator.comparing(Menu::getPriority))
                 .map(p -> mapToMenuTree(p))
@@ -80,6 +80,10 @@ public class MenuService {
             }
         }
         return parent;
+    }
+
+    public List<Menu> getPermittedMenusByUserId(Long usrId) {
+        return menuRepository.findAllMenuByUserId(usrId);
     }
 
     private MenuTree mapToMenuTree(Menu menus) {

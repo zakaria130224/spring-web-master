@@ -61,7 +61,7 @@ public class LoginHandler implements AuthenticationSuccessHandler {
 //                } else {
 //                    redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, ConstantGlobal.DEFAULT_OTP_ERROR);
 //                }
-                SessionManager.initSession(httpServletRequest, dtoUserSession, menuService.getPermittedMenusByUserId(appUser.getId()));
+                SessionManager.initSession(httpServletRequest, dtoUserSession, menuService.getPermittedSideMenusByUserId(appUser.getId()), menuService.getPermittedMenusByUserId(appUser.getId()));
 
                 redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/home");
             }

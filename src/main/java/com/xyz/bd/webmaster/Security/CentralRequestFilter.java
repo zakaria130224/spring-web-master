@@ -5,6 +5,7 @@ import com.xyz.bd.webmaster.AppLogger.Service.AuditLoggerService;
 import com.xyz.bd.webmaster.Config.session.SessionConstants;
 import com.xyz.bd.webmaster.Config.session.SessionManager;
 import com.xyz.bd.webmaster.Models.UserManagement.DTOs.MenuTree;
+import com.xyz.bd.webmaster.Models.UserManagement.Entities.Menu;
 import com.xyz.bd.webmaster.Services.UserManagement.MenuService;
 import com.xyz.bd.webmaster.Utility.CachedBodyHttpServletRequest;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
+import org.springframework.web.util.ContentCachingResponseWrapper;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -53,7 +55,7 @@ public class CentralRequestFilter extends OncePerRequestFilter {
             MDC.put("loggerId", uuid);
 
             logger.info("Request Uri: " + request.getRequestURI());
-            MenuTree modelItemRedis = null;
+            Menu modelItemRedis = null;
 //            if (!ConstantGlobal.isInDevelopment) {
             if (!request.getRequestURI().equals("/accessDenied")) {
                 try {
@@ -67,6 +69,7 @@ public class CentralRequestFilter extends OncePerRequestFilter {
 //                            String redirectURL = request.getContextPath() + "/accessDenied";
 //                            response.sendRedirect(redirectURL);
                             redirectStrategy.sendRedirect(request, response, "/accessDenied");
+                            return;
                         }
                     }
                 } catch (Exception e) {
@@ -75,6 +78,7 @@ public class CentralRequestFilter extends OncePerRequestFilter {
             }
 //            CachedBodyHttpServletRequest cachedBodyHttpServletRequest =
 //                    new CachedBodyHttpServletRequest(request);
+//            ContentCachingResponseWrapper responseWrapper=new ContentCachingResponseWrapper(response);
             if (!isUnAuthrized)
                 auditLoggerService.preparedAuditItem(request, uuid);
             filterChain.doFilter(request, response);
@@ -96,7 +100,7 @@ public class CentralRequestFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request)
             throws ServletException {
         String path = request.getRequestURI();
-        return request.getRequestURI().contains("/assets/") || request.getRequestURI().contains("favicon");
+        return path.contains("/assets/") || path.contains("favicon") || path.contains("/logout");
     }
 
     public boolean isSessionValid(HttpServletRequest request) {
@@ -110,18 +114,18 @@ public class CentralRequestFilter extends OncePerRequestFilter {
         return false;
     }
 
-    private MenuTree getMenuItem(HttpServletRequest request) {
+    private Menu getMenuItem(HttpServletRequest request) {
         try {
             String requestURI = getRequestUri(request.getRequestURI());
             long userId = SessionManager.getUserID(request);
             if (userId < 0)
                 return null;
 
-            List<MenuTree> menuModelItemRedis = SessionManager.getPermittedMenuList(request);
+            List<Menu> menuModelItemRedis = SessionManager.getPermittedMenuList(request);
             if (menuModelItemRedis.isEmpty())
                 return null;
             else {
-                for (MenuTree m : menuModelItemRedis) {
+                for (Menu m : menuModelItemRedis) {
                     if (m.getMenuUrl().equalsIgnoreCase(requestURI)) {
                         return m;
                     }
