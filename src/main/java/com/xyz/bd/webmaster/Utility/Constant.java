@@ -8,6 +8,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 public class Constant {
+
+    public static boolean isInDevelopment = false;
     public static ResponseHeader generalSuccess = new ResponseHeader(0, "Operations Success");
     public static ResponseHeader generalFailed = new ResponseHeader(1, "Operations Failed");
     public static String applicationName = "web-master";

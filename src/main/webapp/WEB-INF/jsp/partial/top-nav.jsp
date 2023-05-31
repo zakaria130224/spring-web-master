@@ -27,13 +27,13 @@
                 <div class="media">
                     <div class="media-img-wrap">
                         <div class="avatar">
-                            <img src="${pageContext.request.contextPath}/assets/dist/img/avatar12.jpg" alt="user"
+                            <img src="${pageContext.request.contextPath}/assets/dist/img/img_avatar.png" alt="user"
                                  class="avatar-img rounded-circle">
                         </div>
                         <span class="badge badge-success badge-indicator"></span>
                     </div>
                     <div class="media-body">
-                        <span>Madelyn Shane<i class="zmdi zmdi-chevron-down"></i></span>
+                        <span>${logedUser.loginName}<i class="zmdi zmdi-chevron-down"></i></span>
                     </div>
                 </div>
             </a>

@@ -8,6 +8,7 @@ import com.xyz.bd.webmaster.Models.UserManagement.DTOs.MenuTree;
 import com.xyz.bd.webmaster.Models.UserManagement.Entities.Menu;
 import com.xyz.bd.webmaster.Services.UserManagement.MenuService;
 import com.xyz.bd.webmaster.Utility.CachedBodyHttpServletRequest;
+import com.xyz.bd.webmaster.Utility.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -54,10 +55,11 @@ public class CentralRequestFilter extends OncePerRequestFilter {
             String uuid = UUID.randomUUID().toString();
             MDC.put("loggerId", uuid);
 
+            String uri = request.getRequestURI();
             logger.info("Request Uri: " + request.getRequestURI());
             Menu modelItemRedis = null;
-//            if (!ConstantGlobal.isInDevelopment) {
-            if (!request.getRequestURI().equals("/accessDenied")) {
+
+            if (!Constant.isInDevelopment && !request.getRequestURI().equals("/accessDenied")) {
                 try {
                     if (request.getRequestURI() != null && isSessionValid(request) && !request.getRequestURI().contains("/assets/")) {
                         modelItemRedis = getMenuItem(request);
@@ -79,10 +81,10 @@ public class CentralRequestFilter extends OncePerRequestFilter {
 //            CachedBodyHttpServletRequest cachedBodyHttpServletRequest =
 //                    new CachedBodyHttpServletRequest(request);
 //            ContentCachingResponseWrapper responseWrapper=new ContentCachingResponseWrapper(response);
+
+            filterChain.doFilter(request, response);
             if (!isUnAuthrized)
                 auditLoggerService.preparedAuditItem(request, uuid);
-            filterChain.doFilter(request, response);
-
 
 //            APP_LOGGER app_logger = preparedAuditItem(request, modelItemRedis);
 //            if (app_logger != null) {
@@ -126,7 +128,7 @@ public class CentralRequestFilter extends OncePerRequestFilter {
                 return null;
             else {
                 for (Menu m : menuModelItemRedis) {
-                    if (m.getMenuUrl().equalsIgnoreCase(requestURI)) {
+                    if (m.getMenuUrl().equalsIgnoreCase(requestURI) || m.getMenuUrl().equalsIgnoreCase(requestURI.replaceAll("/\\d+", "/#"))) {
                         return m;
                     }
                 }

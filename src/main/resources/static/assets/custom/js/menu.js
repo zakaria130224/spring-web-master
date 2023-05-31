@@ -81,9 +81,19 @@ function viewEditModal(id) {
         type: 'GET',
         url: base_url + "/menu/update/" + id,
         success: function (data) {
-            //console.log(data)
-            $("#updateModalBody").html(data);
-            enableSelect2();
+            console.log(data)
+            if (data.includes('Access Denied')) {
+                var msg = `<div class="alert alert-danger" role="alert">
+                                        Access Denied! Contact with Administrator
+                                    </div>`;
+                $("#updateModalBody").html(msg);
+                // $('#updateModal').modal('hide');
+                // showAlertMessage('warning', "Access Denied! Contact with Administrator");
+            } else {
+                $("#updateModalBody").html(data);
+                enableSelect2();
+            }
+
         },
         error: function (data) {
             console.log(data)

@@ -58,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .maximumSessions(1)
                 .expiredUrl("/login");
 
-        http.addFilterBefore(new CentralRequestFilter(auditLoggerService), BasicAuthenticationFilter.class);
+//        http.addFilterBefore(new CentralRequestFilter(auditLoggerService), BasicAuthenticationFilter.class);
     }
 
     @Override
